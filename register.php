@@ -52,8 +52,8 @@
       
       <!-- Row 1 -->
       <div class="row">
-        <div class="span6 margtop15">
-          <form class="form-horizontal" method="post" action="signin.php">
+        <div class="span6 margtop15" id="reg">
+          <form class="form-horizontal" method="post" action="temp/signin.php">
               <div class="control-group">
                   <label class="control-label" for="name">Name</label>
                     <div class="controls">
@@ -84,16 +84,8 @@
                     </div>
               </div>
           </form>
+          <div class="returnreg"></div>
         </div>
-         <div class="span3 offset1">
-            <h2>Sign up with facebook id/name</h2>
-            <form class="form-horizontal">
-                <div class="input-prepend input-append">
-                    <span class="add-on">facebook.com/</span><input type="text" id="fbid"/><a class="add-on" id="fbsign"><i class="icon-circle-arrow-right"></i></a>
-                </div>
-            </form>
-        </div>
-         
       </div>
         
     
