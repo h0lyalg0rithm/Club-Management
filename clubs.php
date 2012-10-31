@@ -40,7 +40,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">Heriot Watt Club</a>
+          <a class="brand" href="index.php">Heriot Watt Club</a>
           <ul class="nav">
           	<li><a href="home.php"><i class="icon-home"></i> Home</a></li>
               <li><a href="clubs.php"><i class="icon-th-large"></i> Clubs</a></li>
@@ -72,19 +72,19 @@
           <img src="http://placehold.it/360x200" />
           <h2>Club 1</h2>
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">Visit Page &raquo;</a></p>
+          <p><a class="btn" href="#">Join Club &raquo;</a></p>
         </div>
          <div class="span4">
           <img src="http://placehold.it/360x200" />
           <h2>Club 2</h2>
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">Visit Page &raquo;</a></p>
+          <p><a class="btn" href="#">Join Club &raquo;</a></p>
         </div>
          <div class="span4">
           <img src="http://placehold.it/360x200" />
           <h2>Club 3</h2>
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">Visit Page &raquo;</a></p>
+          <p><a class="btn" href="#">Join Club &raquo;</a></p>
         </div>
       </div>
 		
@@ -95,19 +95,19 @@
           <img src="http://placehold.it/360x200" />
           <h2>Club 1</h2>
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">Visit Page &raquo;</a></p>
+          <p><a class="btn" href="#">Join Club &raquo;</a></p>
         </div>
          <div class="span4">
           <img src="http://placehold.it/360x200" />
           <h2>Club 2</h2>
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">Visit Page &raquo;</a></p>
+          <p><a class="btn" href="#">Join Club &raquo;</a></p>
         </div>
          <div class="span4">
           <img src="http://placehold.it/360x200" />
           <h2>Club 3</h2>
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">Visit Page &raquo;</a></p>
+          <p><a class="btn" href="#">Join Club &raquo;</a></p>
         </div>
       </div>
 	  

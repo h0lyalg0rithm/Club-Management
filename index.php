@@ -35,16 +35,16 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="#">Heriot Watt Club</a>
+          <a class="brand" href="index.php">Heriot Watt Club</a>
           
           <div class="nav-collapse collapse">
             <div class="nav pull-right">
                 <a class="btn btn-primary margleft5" href="register.php">Register</a>
             </div>
             <form class="form-inline pull-right navbar-form" method="post" action="home.php">
-              <div class="input-prepend"><span class="add-on">Email</span><input class="span2" type="text" name="email"></div>
-              <input class="span2" type="password" placeholder="Password" name="password">
-              <button type="submit" class="btn">Sign in</button>
+              <div class="input-prepend"><span class="add-on">Email</span><input class="span2" type="text" name="email" id="email"></div>
+              <input class="span2" type="password" placeholder="Password" name="password" id="password">
+              <button type="submit" class="btn" id="signinbtn">Sign in</button>
             </form>
           </div><!--/.nav-collapse -->
         </div>
@@ -139,6 +139,7 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/jquery.js"></script>
+    <script src="js/club/index.js"></script>
     <script src="js/bootstrap-transition.js"></script>
     <script src="js/bootstrap-alert.js"></script>
     <script src="js/bootstrap-modal.js"></script>

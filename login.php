@@ -36,7 +36,7 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="#">Heriot Watt Club</a>          
+          <a class="brand" href="index.php">Heriot Watt Club</a>          
         </div>
       </div>
     </div>

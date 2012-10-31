@@ -36,7 +36,7 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="#">Heriot Watt Club</a>
+          <a class="brand" href="index.php">Heriot Watt Club</a>
           <ul class="nav">
               <li><a href="home.php"><i class="icon-home"></i> Home</a></li>
               <li><a href="clubs.php"><i class="icon-th-large"></i> Clubs</a></li>
@@ -51,8 +51,8 @@
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="#">Your Profile</a></li>
-              <li><a href="#">Logout</a></li>
+              <li><a href="profile.php">Your Profile</a></li>
+              <li><a href="logout.php">Log Out</a></li>
             </ul>
           </li>
         </ul>
