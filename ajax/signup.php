@@ -1,4 +1,4 @@
-<?php include '../db.php'; include '../functions/secure.php';?>
+<?php include '../functions/db.php'; include '../functions/secure.php';?>
 <?php 
 /*
 if(isset($_POST['fb_username'])){

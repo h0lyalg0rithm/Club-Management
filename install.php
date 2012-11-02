@@ -15,8 +15,7 @@ if($_GET['install']=='1'){
                                name text,
                                student_id int ,
                                email text,
-                               password char(64),
-                               clubs varchar(2)
+                               password char(64)
                         )';
     $user_table = mysql_query($add_user_table);
     if(!$user_table){
@@ -68,6 +67,16 @@ if($_GET['install']=='1'){
     if(!$requests_table){
         die('Table requests already exists');
     }
+    ////////////Add membership
+    $add_membership_table = 'CREATE table membership(
+                                    id int auto_increment primary key,
+                                    studid int,
+                                    clubid int
+                              )';
+    $membership_table = mysql_query($add_membership_table);
+    if(!$membership_table){
+        die('Table membership already exists');
+    }
     echo 'Done';
 }
 if($_GET['install']=='0'){
@@ -96,6 +105,11 @@ if($_GET['install']=='0'){
     $requests_table = mysql_query($drop_requests_table);
     if(!$requests_table){
         die('Table Requests does not exists');
+    }
+    $drop_membership_table = 'DROP TABLE membership';
+    $membership_table = mysql_query($drop_membership_table);
+    if(!$membership_table){
+        die('Table Membership does not exists');
     }
     echo 'Done';
 }

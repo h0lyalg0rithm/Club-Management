@@ -1,4 +1,4 @@
-<?php include 'db.php';?>
+<?php include '/functions/db.php';?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -53,7 +53,7 @@
       <!-- Row 1 -->
       <div class="row">
         <div class="span6 margtop15" id="reg">
-          <form class="form-horizontal" method="post" action="temp/signin.php">
+          <form class="form-horizontal" method="post" action="ajax/signup.php">
               <div class="control-group">
                   <label class="control-label" for="name">Name</label>
                     <div class="controls">

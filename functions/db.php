@@ -1,13 +1,8 @@
 <?php
-
-$hostname = 'localhost';
-$username = 'root';
-$password = '';
-
-$connection = mysql_connect($hostname,$username,$password);
-if(!$connection){
-    die('Cant connect to DB');
+$connection = mysql_connect('localhost','root','');
+$select_db = mysql_select_db('clubs');
+if(!$connection && !$select_db){
+    die('Error Call administrator');
 }
-
 
 ?>

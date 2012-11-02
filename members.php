@@ -1,3 +1,29 @@
+<?php 
+
+include '/functions/db.php';
+include '/functions/sessions.php';
+include '/functions/secure.php';
+onlyadmins($is_admin);
+$get_admin_of_club = "SELECT * FROM admin WHERE studid=".$_SESSION['id'];
+$get_admin_of_club = mysql_query($get_admin_of_club);
+if(mysql_num_rows($get_admin_of_club)){
+    $admin_of_club = mysql_fetch_assoc($get_admin_of_club);
+    $get_requests = "SELECT * FROM requests WHERE clubid =".$admin_of_club['clubid'];
+    $requests = mysql_query($get_requests);
+    if($requests){
+        $num_of_requests = mysql_num_rows($requests);
+    }else{
+        $num_of_requests = 0;
+    }
+    $get_old_members = "SELECT * FROM membership WHERE clubid =".$admin_of_club['clubid'];
+    $old_members = mysql_query($get_old_members);
+    if($old_members){
+        $num_of_old_members = mysql_num_rows($old_members);
+    }else{
+        $num_of_old_members = 0;
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -31,30 +57,40 @@
   </head>
 
   <body>
-
+    <?php /*print_r($get_requests);*/?>
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <a class="brand" href="index.php">Heriot Watt Club</a>
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <div class="nav-collapse collapse">
           <ul class="nav">
               <li><a href="home.php"><i class="icon-home"></i> Home</a></li>
               <li><a href="clubs.php"><i class="icon-th-large"></i> Clubs</a></li>
+              <?php if(isset($is_admin)){if($is_admin){?>
               <li><a href="members.php"><span class="badge badge-inverse">3</span> Members</a></li>
               <li><a href="organize.php"><i class="icon-calendar"></i> Organize</a></li>
               <li><a href="attendance.php"><i class="icon-calendar"></i> Manage</a></li>
+              <?php }}?>
           </ul>
-         <ul class="nav nav-pills pull-right">
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="icon-wrench"></i> Your Profile
-                <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-              <li><a href="profile.php">Your Profile</a></li>
-              <li><a href="logout.php">Log Out</a></li>
-            </ul>
-          </li>
-        </ul>
+          <ul class="nav nav-pills pull-right">
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="icon-wrench"></i> Your Profile
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="profile.php">Your Profile</a></li>
+                  <li><a href="logout.php">Log Out</a></li>
+                </ul>
+              </li>
+          </ul>
+          </div>
          <!--/.nav-collapse -->
         </div>
       </div>
@@ -74,92 +110,51 @@
       <!-- Row 1 -->
       <div class="row">
         <div class="span5">
+            <?php 
+            if($num_of_requests){
+            ?>
             <h2>New Members</h2>
+            <?php while($new_members= mysql_fetch_assoc($requests)){
+                $get_requests_details = "SELECT * FROM users WHERE id=".$new_members['studid'];
+                $requests_details = mysql_query($get_requests_details);
+                if($requests_details){
+                    $new_member_details=mysql_fetch_assoc($requests_details);
+                    
+            ?>
             <div class="module">
                 <div class="module-cell">
                     <img src="http://placehold.it/72x72" class="avatar"/>
-                    <h3 class="pull-left">Member name</h3>
+                    <h3 class="pull-left"><?php echo $new_member_details['name'];?></h3>
                     <div class="inline margtop15">
                         <input type="button" class="btn btn-danger pull-right margleft5" value="Deny" />
                         <input type="button" class="btn btn-success pull-right margleft5" value="Accept" />
                     </div>
                 </div>
             </div>
-            <div class="module">
-                <div class="module-cell">
-                    <img src="http://placehold.it/72x72" class="avatar"/>
-                    <h3 class="pull-left">Member name</h3>
-                    <div class="inline margtop15">
-                        <input type="button" class="btn btn-danger pull-right margleft5" value="Deny" />
-                        <input type="button" class="btn btn-success pull-right margleft5" value="Accept" />
-                    </div>
-                </div>
-            </div>
-            <div class="module">
-                <div class="module-cell">
-                    <img src="http://placehold.it/72x72" class="avatar"/>
-                    <h3 class="pull-left">Member name</h3>
-                    <div class="inline margtop15">
-                        <input type="button" class="btn btn-danger pull-right margleft5" value="Deny" />
-                        <input type="button" class="btn btn-success pull-right margleft5" value="Accept" />
-                    </div>
-                </div>
-            </div>
+            <?php }}}else{?>
+            <h2>No new members</h2>
+            <?php }?>
         </div>
         <div class="span6">
+            <?php 
+            if($num_of_old_members){
+            ?>
             <h2>Old Members</h2>
             <div class="module">
+                <?php while($old_member = mysql_fetch_assoc($old_members)){
+                        $get_member_details = "SELECT * FROM users WHERE id=".$old_member['studid'];
+                        $member_details = mysql_query($get_member_details);
+                        if($member_details){
+                            $old_member_details=mysql_fetch_assoc($member_details);
+                    ?>
                 <div class="module-cell minheight">
                     <img src="http://placehold.it/72x72" class="avatar pull-left"/>
-                    <h3 class="pull-left">Member name</h3>
+                    <h3 class="pull-left"><?php echo $old_member_details['name'];?></h3>
                     <input type="button" class="btn btn-danger pull-right margtop15" value="Remove" />
                 </div>
-                <div class="module-cell minheight">
-                    <img src="http://placehold.it/72x72" class="avatar pull-left"/>
-                    <h3 class="pull-left">Member name</h3>
-                    <input type="button" class="btn btn-danger pull-right margtop15" value="Remove" />
-                </div>
-                <div class="module-cell minheight">
-                    <img src="http://placehold.it/72x72" class="avatar pull-left"/>
-                    <h3 class="pull-left">Member name</h3>
-                    <input type="button" class="btn btn-danger pull-right margtop15" value="Remove" />
-                </div>
-                <div class="module-cell minheight">
-                    <img src="http://placehold.it/72x72" class="avatar pull-left"/>
-                    <h3 class="pull-left">Member name</h3>
-                    <input type="button" class="btn btn-danger pull-right margtop15" value="Remove" />
-                </div>
-                <div class="module-cell minheight">
-                    <img src="http://placehold.it/72x72" class="avatar pull-left"/>
-                    <h3 class="pull-left">Member name</h3>
-                    <input type="button" class="btn btn-danger pull-right margtop15" value="Remove" />
-                </div>
-                <div class="module-cell minheight">
-                    <img src="http://placehold.it/72x72" class="avatar pull-left"/>
-                    <h3 class="pull-left">Member name</h3>
-                    <input type="button" class="btn btn-danger pull-right margtop15" value="Remove" />
-                </div>
-                <div class="module-cell minheight">
-                    <img src="http://placehold.it/72x72" class="avatar pull-left"/>
-                    <h3 class="pull-left">Member name</h3>
-                    <input type="button" class="btn btn-danger pull-right margtop15" value="Remove" />
-                </div>
-                <div class="module-cell minheight">
-                    <img src="http://placehold.it/72x72" class="avatar pull-left"/>
-                    <h3 class="pull-left">Member name</h3>
-                    <input type="button" class="btn btn-danger pull-right margtop15" value="Remove" />
-                </div>
-                <div class="module-cell minheight">
-                    <img src="http://placehold.it/72x72" class="avatar pull-left"/>
-                    <h3 class="pull-left">Member name</h3>
-                    <input type="button" class="btn btn-danger pull-right margtop15" value="Remove" />
-                </div>
-                <div class="module-cell minheight">
-                    <img src="http://placehold.it/72x72" class="avatar pull-left"/>
-                    <h3 class="pull-left">Member name</h3>
-                    <input type="button" class="btn btn-danger pull-right margtop15" value="Remove" />
-                </div>
-                
+                <?php }}}else{ ?>
+                <h2>No Members in your club</h2>
+                <?php }?>                
             </div>
         </div>
       </div>

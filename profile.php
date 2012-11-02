@@ -1,3 +1,12 @@
+<?php
+include '/functions/db.php';
+include '/functions/sessions.php';
+include '/functions/secure.php';
+if(!isset($_SESSION['id'])){
+    header('Location: login.php');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -36,12 +45,21 @@
       <div class="navbar-inner">
         <div class="container">
           <a class="brand" href="index.php">Heriot Watt Club</a>
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <div class="nav-collapse collapse">
           <ul class="nav">
              <li><a href="home.php"><i class="icon-home"></i> Home</a></li>
               <li><a href="clubs.php"><i class="icon-th-large"></i> Clubs</a></li>
+              <?php if(isset($is_admin)){if($is_admin){?>
               <li><a href="members.php"><span class="badge badge-inverse">3</span> Members</a></li>
               <li><a href="organize.php"><i class="icon-calendar"></i> Organize</a></li>
               <li><a href="attendance.php"><i class="icon-calendar"></i> Manage</a></li>
+              <?php }}?>
           </ul>
          <ul class="nav nav-pills pull-right">
           <li class="dropdown">
@@ -55,6 +73,7 @@
             </ul>
           </li>
         </ul>
+        </div>
          <!--/.nav-collapse -->
         </div>
       </div>
@@ -70,42 +89,43 @@
         </div>
         <div class="span8">
             <form class="form-horizontal">
-                      <div class="control-group">
-                          <label class="control-label" for="inputEmail">Name</label>
-                            <div class="controls">
-                              <input type="text" id="inputEmail" placeholder="Name">
-                            </div>
-                      </div>
-                      <div class="control-group">
-                          <label class="control-label" for="inputEmail">Email</label>
-                            <div class="controls">
-                              <input type="text" id="inputEmail" placeholder="Name">
-                            </div>
-                      </div>
-                      <div class="control-group">
-                          <label class="control-label" for="inputEmail">Students ID</label>
-                            <div class="controls">
-                              <input type="text" id="inputEmail" placeholder="Heriot Watt ID">
-                            </div>
-                      </div>
-                      <div class="control-group">
-                          <label class="control-label" for="inputEmail">Password</label>
-                            <div class="controls">
-                              <input type="text" id="inputEmail" placeholder="Password">
-                            </div>
-                      </div>
-                      <div class="control-group">
-                          <label class="control-label" for="inputEmail">Password again</label>
-                            <div class="controls">
-                              <input type="text" id="inputEmail" placeholder="Password">
-                            </div>
-                      </div>
-                      <div class="control-group">
-                        <div class="controls">
-                          <button type="submit" class="btn btn-primary">Save</button>
-                        </div>
-                      </div>
-                  </form>
+              <div class="control-group">
+                  <label class="control-label" for="name">Name</label>
+                    <div class="controls">
+                      <input type="text" id="name" placeholder="Name">
+                    </div>
+              </div>
+              <div class="control-group">
+                  <label class="control-label" for="email">Email</label>
+                    <div class="controls">
+                      <input type="text" id="email" placeholder="Name">
+                    </div>
+              </div>
+              <div class="control-group">
+                  <label class="control-label" for="studid">Students ID</label>
+                    <div class="controls">
+                      <input type="text" id="studid" placeholder="Heriot Watt ID">
+                    </div>
+              </div>
+              <div class="control-group">
+                  <label class="control-label" for="oldpassword">Old Password</label>
+                    <div class="controls">
+                      <input type="text" id="oldpassword" placeholder="Password">
+                    </div>
+              </div>
+              <div class="control-group">
+                  <label class="control-label" for="newpassword">Password again</label>
+                    <div class="controls">
+                      <input type="text" id="newpassword" placeholder="Password">
+                    </div>
+              </div>
+              <div class="control-group">
+                <div class="controls">
+                  <button type="button" class="btn btn-primary" id="save">Save</button>
+                </div>
+              </div>
+            </form>
+            <div id="status"></div>
         </div>
       </div>
         
@@ -122,6 +142,7 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/jquery.js"></script>
+    <script src="js/club/profile.js"></script>
     <script src="js/bootstrap-transition.js"></script>
     <script src="js/bootstrap-alert.js"></script>
     <script src="js/bootstrap-modal.js"></script>

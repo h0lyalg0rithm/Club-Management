@@ -1,10 +1,3 @@
-<?php 
-
-include '/functions/db.php';
-include '/functions/sessions.php';
-include '/functions/secure.php';
-session_destroy();
-?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -24,6 +17,7 @@ session_destroy();
     </style>
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
 
+
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -42,18 +36,7 @@ session_destroy();
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="index.php">Heriot Watt Club</a>
-          
-          <div class="nav-collapse collapse">
-            <div class="nav pull-right">
-                <a class="btn btn-primary margleft5" href="register.php">Register</a>
-            </div>
-            <form class="form-inline pull-right navbar-form" method="post" action="home.php">
-              <div class="input-prepend"><span class="add-on">Email</span><input class="span2" type="text" name="email" id="email"></div>
-              <input class="span2" type="password" placeholder="Password" name="password" id="password">
-              <button type="submit" class="btn" id="signinbtn">Sign in</button>
-            </form>
-          </div>
+          <a class="brand" href="index.php">Heriot Watt Club</a>          
         </div>
       </div>
     </div>
@@ -66,15 +49,51 @@ session_destroy();
               <h1>Welcome</h1>
               <p>This is the official page for the heriot watt clubs.</p>
               <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-            </div>-->
+      </div>-->
       
 
       <!-- Row 1 -->
-     <div class="row">
-        <h2>You have successfully logged out</h2>
+      <div class="row">
+        <div class="span5">
+        	
+        	<img src="http://placehold.it/500x300" />
+        </div>
+        <div class="span7">
+            <?php if(isset($_GET['error'])){
+                if($_GET['error']==1){?>
+            <div class="alert">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>Error!</strong> The username and password you entered are incorrect
+            </div>
+                <?}
+            }?>
+        	<br><br>
+        	<form class="form-horizontal" action="home.php" method="post">
+			  <div class="control-group">
+			    <label class="control-label" for="inputEmail">Email</label>
+			    <div class="controls">
+			      <input type="text" id="inputEmail" placeholder="Email" name="email">
+			    </div>
+			  </div>
+			  <div class="control-group">
+			    <label class="control-label" for="inputPassword">Password</label>
+			    <div class="controls">
+			      <input type="password" id="inputPassword" placeholder="Password" name="password">
+			    </div>
+			  </div>
+			  <div class="control-group">
+			    <div class="controls">
+			      <label class="checkbox">
+			        <input type="checkbox"> Remember me
+			      </label>
+			      <button type="submit" class="btn">Sign in</button>
+			    </div>
+			  </div>
+			</form>
+        </div>
       </div>
-        
-      
+		
+	  
       <hr>
 
       <footer>

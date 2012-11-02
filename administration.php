@@ -1,3 +1,10 @@
+<?php 
+
+include '/functions/db.php';
+include '/functions/sessions.php';
+include '/functions/secure.php';
+onlyadmins($is_admin);
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -39,9 +46,11 @@
           <ul class="nav">
 	         <li><a href="home.php"><i class="icon-home"></i> Home</a></li>
               <li><a href="clubs.php"><i class="icon-th-large"></i> Clubs</a></li>
+              <?php if(isset($is_admin)){if($is_admin){?>
               <li><a href="members.php"><span class="badge badge-inverse">3</span> Members</a></li>
               <li><a href="organize.php"><i class="icon-calendar"></i> Organize</a></li>
               <li><a href="attendance.php"><i class="icon-calendar"></i> Manage</a></li>
+              <?php }}?>
           </ul>
          <ul class="nav nav-pills pull-right">
 		  <li class="dropdown">

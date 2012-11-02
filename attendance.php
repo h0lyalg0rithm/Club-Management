@@ -1,4 +1,10 @@
-<?php include('db.php'); ?>
+<?php 
+
+include '/functions/db.php';
+include '/functions/sessions.php';
+include '/functions/secure.php';
+onlyadmins($is_admin);
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -37,25 +43,35 @@
       <div class="navbar-inner">
         <div class="container">
           <a class="brand" href="index.php">Heriot Watt Club</a>
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <div class="nav-collapse collapse">
           <ul class="nav">
               <li><a href="home.php"><i class="icon-home"></i> Home</a></li>
               <li><a href="clubs.php"><i class="icon-th-large"></i> Clubs</a></li>
+              <?php if(isset($is_admin)){if($is_admin){?>
               <li><a href="members.php"><span class="badge badge-inverse">3</span> Members</a></li>
               <li><a href="organize.php"><i class="icon-calendar"></i> Organize</a></li>
               <li><a href="attendance.php"><i class="icon-calendar"></i> Manage</a></li>
+              <?php }}?>
           </ul>
-         <ul class="nav nav-pills pull-right">
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="icon-wrench"></i> Your Profile
-                <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-              <li><a href="profile.php">Your Profile</a></li>
-              <li><a href="logout.php">Log Out</a></li>
-            </ul>
-          </li>
-        </ul>
+          <ul class="nav nav-pills pull-right">
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="icon-wrench"></i> Your Profile
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="profile.php">Your Profile</a></li>
+                  <li><a href="logout.php">Log Out</a></li>
+                </ul>
+              </li>
+          </ul>
+        </div>
          <!--/.nav-collapse -->
         </div>
       </div>

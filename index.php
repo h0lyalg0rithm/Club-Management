@@ -36,7 +36,12 @@
       <div class="navbar-inner">
         <div class="container">
           <a class="brand" href="index.php">Heriot Watt Club</a>
-          
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
           <div class="nav-collapse collapse">
             <div class="nav pull-right">
                 <a class="btn btn-primary margleft5" href="register.php">Register</a>

@@ -1,3 +1,35 @@
+<?php 
+
+include '/functions/db.php';
+include '/functions/sessions.php';
+include '/functions/secure.php';
+if(isset($_SESSION['id'])){
+    $check_clubs = "SELECT * FROM membership WHERE studid=".$_SESSION['id'];
+    $check_clubs_raw = mysql_query($check_clubs);
+    if($check_clubs_raw){
+        $num_clubs = mysql_num_rows($check_clubs_raw);
+        while($clubs_id = mysql_fetch_assoc($check_clubs_raw)){
+            $get_club_details = "SELECT * FROM clubs where id = ".$clubs_id['clubid'];
+            $get_club_details_query = mysql_query($get_club_details);
+            if($get_club_details_query)
+                $clubs[] = mysql_fetch_assoc($get_club_details_query);
+        }
+        /*
+        for($i=0;$i<count($club_id);$i++){
+                     $get_all_other_clubs_f= $get_all_other_clubs_f.$club_id[$i];
+                     if($i==(count($clubid)-1))
+                     $get_all_other_clubs_f = $get_all_other_clubs_f." AND id<>";
+                }
+                echo $get_all_other_clubs_f;*/
+    }else{
+        $num_clubs = 0;
+    }
+    $get_all_clubs = "SELECT * FROM clubs";
+    $all_clubs = mysql_query($get_all_clubs);
+}else{
+    header("Location: login.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -30,8 +62,7 @@
     <link rel="apple-touch-icon-precomposed" href="/ico/apple-touch-icon-57-precomposed.png">
   </head>
 
-  <body>
-
+  <body><?php /*print_r($clubs);*/?>
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -41,15 +72,31 @@
             <span class="icon-bar"></span>
           </a>
           <a class="brand" href="index.php">Heriot Watt Club</a>
-          <ul class="nav">
-          	<li><a href="home.php"><i class="icon-home"></i> Home</a></li>
-              <li><a href="clubs.php"><i class="icon-th-large"></i> Clubs</a></li>
-              <li><a href="members.php"><span class="badge badge-inverse">3</span> Members</a></li>
-              <li><a href="organize.php"><i class="icon-calendar"></i> Organize</a></li>
-              <li><a href="attendance.php"><i class="icon-calendar"></i> Manage</a></li>
-          </ul>
           <div class="nav-collapse collapse">
+              <ul class="nav">
+              	<li><a href="home.php"><i class="icon-home"></i> Home</a></li>
+                <li><a href="clubs.php"><i class="icon-th-large"></i> Clubs</a></li>
+              <?php if(isset($is_admin)){if($is_admin){?>
+                <li><a href="members.php"><span class="badge badge-inverse">3</span> Members</a></li>
+                <li><a href="organize.php"><i class="icon-calendar"></i> Organize</a></li>
+                <li><a href="attendance.php"><i class="icon-calendar"></i> Manage</a></li>
+              <?php }}?>
+              </ul>
           </div><!--/.nav-collapse -->
+          <div class="nav-collapse collapse">
+             <ul class="nav nav-pills pull-right">
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="icon-wrench"></i> Your Profile
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="profile.php">Your Profile</a></li>
+                  <li><a href="logout.php">Log Out</a></li>
+                </ul>
+              </li>
+             </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -66,49 +113,38 @@
       
 
       <!-- Row 1 -->
+     <?php 
+            if($num_clubs){?>
      <h1>Clubs you have signed up for.</h1>
      <div class="row">
+        <?php
+            foreach ($clubs as $club) {
+        ?>
         <div class="span4">
           <img src="http://placehold.it/360x200" />
-          <h2>Club 1</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">Join Club &raquo;</a></p>
+          <h2><?php echo $club['name'];?></h2>
+          <p><?php echo $club['description'];?></p>
+          <p><a class="btn" club="<?php echo $club['id'];?>" id="joined">Join Club &raquo;</a></p>
         </div>
-         <div class="span4">
-          <img src="http://placehold.it/360x200" />
-          <h2>Club 2</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">Join Club &raquo;</a></p>
-        </div>
-         <div class="span4">
-          <img src="http://placehold.it/360x200" />
-          <h2>Club 3</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">Join Club &raquo;</a></p>
-        </div>
-      </div>
+        <?php } ?>
+        </div>    
+        <?php    }else{?>
+         <h1 class="alert">You have not signed up for any club</h1>
+        <?php } ?>
 		
 	  <!-- Row 2 -->
      <h1>Have time for some other clubs.</h1>
      <div class="row">
+        <?php 
+        while($club = mysql_fetch_assoc($all_clubs)){
+        ?>
         <div class="span4">
           <img src="http://placehold.it/360x200" />
-          <h2>Club 1</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">Join Club &raquo;</a></p>
+          <h2><?php echo $club['name'];?></h2>
+          <p><?php echo $club['description'];?></p>
+          <p><a class="btn" club="<?php echo $club['id'];?>" id="join">Join Club &raquo;</a></p>
         </div>
-         <div class="span4">
-          <img src="http://placehold.it/360x200" />
-          <h2>Club 2</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">Join Club &raquo;</a></p>
-        </div>
-         <div class="span4">
-          <img src="http://placehold.it/360x200" />
-          <h2>Club 3</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">Join Club &raquo;</a></p>
-        </div>
+        <?php } /*club="<?php echo $clubs['id'];?>"*/?>
       </div>
 	  
       <hr>
@@ -123,6 +159,7 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/jquery.js"></script>
+    <script src="js/club/clubs.js"></script>
     <script src="js/bootstrap-transition.js"></script>
     <script src="js/bootstrap-alert.js"></script>
     <script src="js/bootstrap-modal.js"></script>
