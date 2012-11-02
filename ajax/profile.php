@@ -3,6 +3,7 @@ include '../functions/db.php';
 include '../functions/sessions.php';
 include '../functions/secure.php';
 $update = "UPDATE users set";
+onlyadmins($is_admin);
 if(isset($_SESSION['id'])){
     $c = 0;
     if(isset($_POST['name']) && $_POST['name']!=""){

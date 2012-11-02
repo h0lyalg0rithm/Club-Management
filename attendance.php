@@ -4,6 +4,24 @@ include '/functions/db.php';
 include '/functions/sessions.php';
 include '/functions/secure.php';
 onlyadmins($is_admin);
+$is_admin = admin_check_force();
+$is_admin = admin_check_force();
+if($is_admin){
+    $tit_get_admin_club = "SELECT * from admin WHERE studid=".$_SESSION['id'];
+    $tit_admin_club = mysql_query($tit_get_admin_club);
+    if($tit_admin_club){
+        if(mysql_num_rows($tit_admin_club)){
+            $tit_admin_club_id = mysql_fetch_assoc($tit_admin_club);
+            $tit_get_all_requests = "SELECT COUNT(*) FROM requests WHERE clubid=".$tit_admin_club_id['clubid'];
+            $tit_all_requests = mysql_query($tit_get_all_requests);
+            if($tit_all_requests){
+                if(mysql_num_rows($tit_all_requests)){
+                    $tit_requests = mysql_fetch_assoc($tit_all_requests);
+                }
+            }
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,7 +72,7 @@ onlyadmins($is_admin);
               <li><a href="home.php"><i class="icon-home"></i> Home</a></li>
               <li><a href="clubs.php"><i class="icon-th-large"></i> Clubs</a></li>
               <?php if(isset($is_admin)){if($is_admin){?>
-              <li><a href="members.php"><span class="badge badge-inverse">3</span> Members</a></li>
+              <li><a href="members.php"><span class="badge badge-inverse"><?php echo $tit_requests['COUNT(*)']; ?></span> Members</a></li>
               <li><a href="organize.php"><i class="icon-calendar"></i> Organize</a></li>
               <li><a href="attendance.php"><i class="icon-calendar"></i> Manage</a></li>
               <?php }}?>
@@ -62,7 +80,7 @@ onlyadmins($is_admin);
           <ul class="nav nav-pills pull-right">
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="icon-wrench"></i> Your Profile
+                    <i class="icon-wrench"></i> Settings
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">

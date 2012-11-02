@@ -51,7 +51,7 @@ $(document).ready(function(){
         var studid = $('#studid').val();
         var email = $('#email').val();
         var password = $('#password').val();
-        $.post('/program/ajax/signup.php', {name:name,studid:studid,email:email,
+        $.post('/program/ajax/register.php', {name:name,studid:studid,email:email,
             password:password},function(data) {
             $('.returnreg').fadeIn('40000').html(data);
         });
@@ -60,7 +60,7 @@ $(document).ready(function(){
     ////////////////////////
     function fbreg(){
         var fbid = $('#fbid').val();
-        $.post('/program/ajax/signup.php',{fb_username:fbid},function(data){
+        $.post('/program/ajax/register.php',{fb_username:fbid},function(data){
             $('#returnfb').html(data);
         });
     }

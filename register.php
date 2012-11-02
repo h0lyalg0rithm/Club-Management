@@ -53,7 +53,7 @@
       <!-- Row 1 -->
       <div class="row">
         <div class="span6 margtop15" id="reg">
-          <form class="form-horizontal" method="post" action="ajax/signup.php">
+          <form class="form-horizontal" method="post">
               <div class="control-group">
                   <label class="control-label" for="name">Name</label>
                     <div class="controls">

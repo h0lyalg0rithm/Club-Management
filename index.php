@@ -1,3 +1,15 @@
+<?php 
+
+include '/functions/db.php';
+include '/functions/sessions.php';
+include '/functions/secure.php';
+if(isset($_SESSION['id'])){
+    header('Location: home.php');
+}
+$get_all_clubs = "SELECT * FROM clubs";
+$all_clubs = mysql_query($get_all_clubs);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -69,69 +81,29 @@
 
       <!-- Row 1 -->
       <div class="row">
-        <div class="span4">
-          <img src="http://placehold.it/360x200" />
-          <h2>Club 1</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">Visit Page &raquo;</a></p>
-        </div>
-         <div class="span4">
-          <img src="http://placehold.it/360x200" />
-          <h2>Club 2</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">Visit Page &raquo;</a></p>
-        </div>
-         <div class="span4">
-          <img src="http://placehold.it/360x200" />
-          <h2>Club 3</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">Visit Page &raquo;</a></p>
-        </div>
+      <?php 
+      $index = 0;
+      while($club = mysql_fetch_assoc($all_clubs)){
+      if($index%3==0){
+      ?>
       </div>
-		
-	<!-- Row 2 -->	
-	  <div class="row">
-        <div class="span4">
-          <img src="http://placehold.it/360x200" />
-          <h2>Club 1</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">Visit Page &raquo;</a></p>
-        </div>
-         <div class="span4">
-          <img src="http://placehold.it/360x200" />
-          <h2>Club 2</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">Visit Page &raquo;</a></p>
-        </div>
-         <div class="span4">
-          <img src="http://placehold.it/360x200" />
-          <h2>Club 3</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">Visit Page &raquo;</a></p>
-        </div>
-      </div>
-      
-      <!-- Row 3 -->
       <div class="row">
         <div class="span4">
           <img src="http://placehold.it/360x200" />
-          <h2>Club 1</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">Visit Page &raquo;</a></p>
+          <h2><?php echo $club['name'];?></h2>
+          <p><?php echo $club['name'];?></p>
         </div>
+        <?php }else{ ?>
          <div class="span4">
           <img src="http://placehold.it/360x200" />
-          <h2>Club 2</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">Visit Page &raquo;</a></p>
+          <h2><?php echo $club['name'];?></h2>
+          <p><?php echo $club['name'];?></p>
         </div>
-         <div class="span4">
-          <img src="http://placehold.it/360x200" />
-          <h2>Club 3</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">Visit Page &raquo;</a></p>
-        </div>
-      </div>
+        <?php } ?>
+      
+      <?php $index++;} ?>
+     </div>
+      
       <hr>
 
       <footer>

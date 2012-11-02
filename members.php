@@ -23,6 +23,23 @@ if(mysql_num_rows($get_admin_of_club)){
         $num_of_old_members = 0;
     }
 }
+$is_admin = admin_check_force();
+if($is_admin){
+    $tit_get_admin_club = "SELECT * from admin WHERE studid=".$_SESSION['id'];
+    $tit_admin_club = mysql_query($tit_get_admin_club);
+    if($tit_admin_club){
+        if(mysql_num_rows($tit_admin_club)){
+            $tit_admin_club_id = mysql_fetch_assoc($tit_admin_club);
+            $tit_get_all_requests = "SELECT COUNT(*) FROM requests WHERE clubid=".$tit_admin_club_id['clubid'];
+            $tit_all_requests = mysql_query($tit_get_all_requests);
+            if($tit_all_requests){
+                if(mysql_num_rows($tit_all_requests)){
+                    $tit_requests = mysql_fetch_assoc($tit_all_requests);
+                }
+            }
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,7 +74,7 @@ if(mysql_num_rows($get_admin_of_club)){
   </head>
 
   <body>
-    <?php /*print_r($get_requests);*/?>
+    <?php /*print_r($is_admin);*/?>
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -73,7 +90,7 @@ if(mysql_num_rows($get_admin_of_club)){
               <li><a href="home.php"><i class="icon-home"></i> Home</a></li>
               <li><a href="clubs.php"><i class="icon-th-large"></i> Clubs</a></li>
               <?php if(isset($is_admin)){if($is_admin){?>
-              <li><a href="members.php"><span class="badge badge-inverse">3</span> Members</a></li>
+              <li><a href="members.php"><span class="badge badge-inverse"><?php echo $tit_requests["COUNT(*)"]; ?></span> Members</a></li>
               <li><a href="organize.php"><i class="icon-calendar"></i> Organize</a></li>
               <li><a href="attendance.php"><i class="icon-calendar"></i> Manage</a></li>
               <?php }}?>
@@ -81,7 +98,7 @@ if(mysql_num_rows($get_admin_of_club)){
           <ul class="nav nav-pills pull-right">
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="icon-wrench"></i> Your Profile
+                    <i class="icon-wrench"></i> Settings
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
@@ -113,7 +130,7 @@ if(mysql_num_rows($get_admin_of_club)){
             <?php 
             if($num_of_requests){
             ?>
-            <h2>New Members</h2>
+            <h2>New Requests</h2>
             <?php while($new_members= mysql_fetch_assoc($requests)){
                 $get_requests_details = "SELECT * FROM users WHERE id=".$new_members['studid'];
                 $requests_details = mysql_query($get_requests_details);
@@ -126,8 +143,8 @@ if(mysql_num_rows($get_admin_of_club)){
                     <img src="http://placehold.it/72x72" class="avatar"/>
                     <h3 class="pull-left"><?php echo $new_member_details['name'];?></h3>
                     <div class="inline margtop15">
-                        <input type="button" class="btn btn-danger pull-right margleft5" value="Deny" />
-                        <input type="button" class="btn btn-success pull-right margleft5" value="Accept" />
+                        <input type="button" class="btn btn-danger pull-right margleft5" value="Deny" id="deny" studid="<?php echo $new_member_details['id'];?>"/>
+                        <input type="button" class="btn btn-success pull-right margleft5" value="Accept" id="accept" studid="<?php echo $new_member_details['id'];?>"/>
                     </div>
                 </div>
             </div>
@@ -150,7 +167,7 @@ if(mysql_num_rows($get_admin_of_club)){
                 <div class="module-cell minheight">
                     <img src="http://placehold.it/72x72" class="avatar pull-left"/>
                     <h3 class="pull-left"><?php echo $old_member_details['name'];?></h3>
-                    <input type="button" class="btn btn-danger pull-right margtop15" value="Remove" />
+                    <input type="button" class="btn btn-danger pull-right margtop15" value="Remove" id="remove" studid="<?php echo $old_member_details['id'];?>"/>
                 </div>
                 <?php }}}else{ ?>
                 <h2>No Members in your club</h2>
@@ -172,6 +189,7 @@ if(mysql_num_rows($get_admin_of_club)){
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/jquery.js"></script>
+    <script src="js/club/members.js"></script>
     <script src="js/bootstrap-transition.js"></script>
     <script src="js/bootstrap-alert.js"></script>
     <script src="js/bootstrap-modal.js"></script>

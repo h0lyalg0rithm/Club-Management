@@ -21,5 +21,23 @@ function onlyadmins($val=0){
     if(!$val)
     header('Location: home.php');
 }
+function admin_check_force(){
+    $check_if_admin = "SELECT * FROM admin WHERE studid=".$_SESSION['id'];
+    $checked_admin = mysql_query($check_if_admin);
+    if($checked_admin){
+        if(mysql_num_rows($checked_admin)){
+            $check_if_admin = mysql_fetch_assoc($checked_admin);
+            if($check_if_admin['id'])
+              return  1;
+            else
+              return  0;
+        }else{
+            return 0;
+        }
+            
+    }else{
+        return  0;
+    }
+}
 
 ?>

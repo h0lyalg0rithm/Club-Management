@@ -39,14 +39,14 @@
           <ul class="nav">
              <li><a href="home.php"><i class="icon-home"></i> Home</a></li>
               <li><a href="clubs.php"><i class="icon-th-large"></i> Clubs</a></li>
-              <li><a href="members.php"><span class="badge badge-inverse">3</span> Members</a></li>
+              <li><a href="members.php"><span class="badge badge-inverse"><?php echo $tit_requests['COUNT(*)']; ?></span> Members</a></li>
               <li><a href="organize.php"><i class="icon-calendar"></i> Organize</a></li>
               <li><a href="attendance.php"><i class="icon-calendar"></i> Manage</a></li>
           </ul>
          <ul class="nav nav-pills pull-right">
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="icon-wrench"></i> Your Profile
+                <i class="icon-wrench"></i> Settings
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
