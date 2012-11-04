@@ -12,7 +12,7 @@
 
 .module-cell {
 	padding: 15px;
-	margin-bottom:15px;
+	padding-bottom:30px;
 	border-top: 1px solid #DEDEDE;
 }
 .module-cell:first-child {
@@ -29,6 +29,9 @@
 .margleft5{
     margin-left:5px;
 }
+.margtop8{
+    margin-top:8px;
+}
 .margtop15{
     margin-top:15px;
 }
@@ -37,4 +40,16 @@
 }
 .margtopmin45{
     margin-top:-45px;
+}
+.margtopmin15{
+    margin-top:-50px;
+}
+.cursor{
+    cursor:pointer;
+}
+.module-cell h3,.module-cell h5{
+    margin:-1px 0;
+} 
+.hovercolor:hover{
+    background-color: whiteSmoke;
 }

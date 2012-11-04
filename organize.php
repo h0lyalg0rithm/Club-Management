@@ -68,13 +68,24 @@ if($is_admin){
           </a>
           <div class="nav-collapse collapse">
           <ul class="nav">
-	         <li><a href="home.php"><i class="icon-home"></i> Home</a></li>
+              <li><a href="home.php"><i class="icon-home"></i> Home</a></li>
               <li><a href="clubs.php"><i class="icon-th-large"></i> Clubs</a></li>
-              <?php if(isset($is_admin)){if($is_admin){?>
-              <li><a href="members.php"><span class="badge badge-inverse"><?php echo $tit_requests['COUNT(*)']; ?></span> Members</a></li>
-              <li><a href="organize.php"><i class="icon-calendar"></i> Organize</a></li>
-              <li><a href="attendance.php"><i class="icon-calendar"></i> Manage</a></li>
-              <?php }}?>
+              <?php 
+              if(isset($is_admin)){
+                  if($is_admin){?>
+              <li><a href="members.php"><span class="badge badge-inverse"><?php echo $tit_requests['COUNT(*)']?></span> Members</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="icon-calendar"></i> Events
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="organize.php">Organize</a></li>
+                  <li><a href="attendance.php">Manage</a></li>
+                </ul>
+              </li>
+              <?php }
+              }?>
           </ul>
           <ul class="nav nav-pills pull-right">
     		  <li class="dropdown">
@@ -104,68 +115,77 @@ if($is_admin){
               <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
             </div>-->
       
-
+      
       <!-- Row 1 -->
       <div class="row">
     	<div class="span4">
-    	    <img src="http://placehold.it/370x300"/>
-    	    <center><h2>Meetup</h2></center>
+    	    <div class="thumbnail cursor" types="1">
+        	    <img src="http://placehold.it/370x300"/>
+        	    <center><h2>Meetup</h2></center>
+    	    </div>
     	</div>
     	<div class="span4">
-            <img src="http://placehold.it/370x300"/>
-            <center><h2>Event</h2></center>
+            <div class="thumbnail cursor" types="2">
+                <img src="http://placehold.it/370x300"/>
+                <center><h2>Event</h2></center>
+            </div>
         </div>
         <div class="span4">
-            <img src="http://placehold.it/370x300"/>
-            <center><h2>Training</h2></center>
+            <div class="thumbnail cursor" types="3">
+                <img src="http://placehold.it/370x300"/>
+                <center><h2>Training</h2></center>
+            </div>
         </div>
       </div>
       
       <!-- Row 2 -->
 	  <div class="row">
-	      <div class="span8 offset2">
+	      <div class="span8 offset2 margtop15">
 	          <div class="span5">
     	          <form class="form-horizontal">
     	              <div class="control-group">
                           <label class="control-label" for="inputEmail">Name</label>
                             <div class="controls">
-                              <input type="text" id="inputEmail" placeholder="Name">
+                              <input type="text" id="inputEmail" placeholder="Name" name="name">
                             </div>
                       </div>
                       <div class="control-group">
                           <label class="control-label" for="inputEmail">Details</label>
                             <div class="controls">
-                              <textarea rows="3"></textarea>
+                              <textarea rows="3" name="details"></textarea>
                             </div>
                       </div>
                       <div class="control-group">
                           <label class="control-label" for="inputEmail">Where</label>
                             <div class="controls">
-                              <input type="text" id="inputEmail" placeholder="Location">
+                              <input type="text" id="inputEmail" placeholder="Location" name="wheres">
                             </div>
                       </div>
                       <div class="control-group">
                           <label class="control-label" for="inputEmail">When</label>
                             <div class="controls">
-                              <input type="date" id="inputEmail">
+                              <input type="date" id="inputEmail" name="whens">
                             </div>
                       </div>
                       <div class="control-group">
                           <label class="control-label" for="inputEmail">Time</label>
                             <div class="controls">
-                              <select>
+                              <select name="time">
                                   <?php for($i=1;$i<=23;$i++){?>
                                   <option value="<?php echo $i.':00';?>"><?php echo $i.":00";?></option>
                                   <?php }?>
                               </select>
                             </div>
                       </div>
+                      
                       <div class="control-group">
                         <div class="controls">
-                          <button type="submit" class="btn btn-primary">Create</button>
+                          <input type="hidden" name="types" value="1"/>
+                          <button type="button"  class="btn btn-primary" id="create">Create</button>
                         </div>
                       </div>
     	          </form>
+    	          <div id="return"></div>
     	      </div>
     	      <div class="span2">
                   <img src="http://placehold.it/180x180" class="img-polaroid"/>
@@ -187,6 +207,7 @@ if($is_admin){
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/jquery.js"></script>
+    <script src="js/club/organize.js"></script>
     <script src="js/bootstrap-transition.js"></script>
     <script src="js/bootstrap-alert.js"></script>
     <script src="js/bootstrap-modal.js"></script>

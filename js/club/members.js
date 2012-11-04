@@ -4,7 +4,7 @@ $(document).ready(function(){
         var studid = $acceptbtn.attr('studid');
         $.post('ajax/members.php',{accept:studid},function(data){
             $acceptbtn.parent().parent().parent().remove();
-            alert(data);
+            //alert(data);
         });
     });
     $('input#remove').click(function(){
@@ -19,7 +19,7 @@ $(document).ready(function(){
         var studid = $denybtn.attr('studid');
         $.post('ajax/members.php',{deny:studid},function(data){
            $denybtn.parent().parent().parent().remove();
-           alert(data);
+           //alert(data);
         });
     });
 });

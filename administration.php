@@ -61,13 +61,24 @@ if($is_admin){
         <div class="container">
           <a class="brand" href="index.php">Heriot Watt Club</a>
           <ul class="nav">
-	         <li><a href="home.php"><i class="icon-home"></i> Home</a></li>
+              <li><a href="home.php"><i class="icon-home"></i> Home</a></li>
               <li><a href="clubs.php"><i class="icon-th-large"></i> Clubs</a></li>
-              <?php if(isset($is_admin)){if($is_admin){?>
-              <li><a href="members.php"><span class="badge badge-inverse"><?php echo $tit_requests['COUNT(*)']; ?></span> Members</a></li>
-              <li><a href="organize.php"><i class="icon-calendar"></i> Organize</a></li>
-              <li><a href="attendance.php"><i class="icon-calendar"></i> Manage</a></li>
-              <?php }}?>
+              <?php 
+              if(isset($is_admin)){
+                  if($is_admin){?>
+              <li><a href="members.php"><span class="badge badge-inverse"><?php echo $tit_requests['COUNT(*)']?></span> Members</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="icon-calendar"></i> Events
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="organize.php">Organize</a></li>
+                  <li><a href="attendance.php">Manage</a></li>
+                </ul>
+              </li>
+              <?php }
+              }?>
           </ul>
          <ul class="nav nav-pills pull-right">
 		  <li class="dropdown">

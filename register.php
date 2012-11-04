@@ -63,13 +63,13 @@
               <div class="control-group">
                   <label class="control-label" for="studid">Student ID</label>
                     <div class="controls">
-                      <input type="text" id="studid" placeholder="Heriot Watt ID">
+                      <input type="text"" id="studid" placeholder="Heriot Watt ID">
                     </div>
               </div>
               <div class="control-group">
                   <label class="control-label" for="email">Email</label>
                     <div class="controls">
-                      <input type="text" id="email" placeholder="Email">
+                      <input type="email" id="email" placeholder="Email">
                     </div>
               </div>
               <div class="control-group">

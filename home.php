@@ -117,8 +117,16 @@ if($is_admin){
               if(isset($is_admin)){
                   if($is_admin){?>
               <li><a href="members.php"><span class="badge badge-inverse"><?php echo $tit_requests['COUNT(*)']?></span> Members</a></li>
-              <li><a href="organize.php"><i class="icon-calendar"></i> Organize</a></li>
-              <li><a href="attendance.php"><i class="icon-calendar"></i> Manage</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="icon-calendar"></i> Events
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="organize.php">Organize</a></li>
+                  <li><a href="attendance.php">Manage</a></li>
+                </ul>
+              </li>
               <?php }
               }?>
           </ul>
@@ -158,7 +166,7 @@ if($is_admin){
         <div class="span4">
         	<h1>Your Profile</h1>
         	<div class="module">
-        		<div class="module-cell">
+        		<div class="module-cell minheight">
         			<img src="http://placehold.it/72x72" class="avatar"/>
         			<h3><?php echo $creds['name']; ?></h3>
     			</div>
@@ -169,7 +177,7 @@ if($is_admin){
         		      if($num_clubs){
         		      foreach ($clubs as $club) {
 				?>
-        		<div class="module-cell">
+        		<div class="module-cell minheight">
                     <img src="http://placehold.it/72x72" class="avatar"/>
                     <h3><?php echo $club['name']; ?></h3>
                 </div>
@@ -178,9 +186,38 @@ if($is_admin){
     		    <?php } ?>
         	</div>
         </div>
-        <div class="span8">
-        	<h1>Recent Activity</h1>
-        	<img src="http://placehold.it/720x800" />
+        <div class="span5"><br />
+        	<div class="tabbable">
+              <ul class="nav nav-tabs">
+                <li class="active"><a href="#pane1" data-toggle="tab">Recent Activity</a></li>
+              </ul>
+              <div class="tab-content">
+                <div id="pane1" class="tab-pane active">
+                  <?php 
+                  $get_recent_events = 'SELECT * from events WHERE attendees LIKE "%,'.$creds['id'].',%" OR attendees LIKE "'.$creds['id'].',%"';
+                  $recent_events = mysql_query($get_recent_events);
+                  if($recent_events){
+                      if(mysql_num_rows($recent_events)){
+                          while($events = mysql_fetch_assoc($recent_events)){
+                              switch ($events['type']) {
+                                  case '1':$event_type = "Meetup"; break;
+                                  case '2':$event_type = "Event"; break;
+                                  case '3':$event_type = "Training"; break;
+                                  default:break;
+                              }
+                              ?>
+                              <div class="modal-header hovercolor"><img src="http://placehold.it/72x72"/> You attended the <?php echo $event_type; ?> : <span class="text-info"><?php echo $events['name'];?></span><br /></div>
+                              <?php
+                          }
+                      }
+                  }
+                  ?>
+                </div>
+              </div><!-- /.tab-content -->
+            </div><!-- /.tabbable -->
+        </div>
+        <div class="span3"><br />
+            <img src="http://placehold.it/300x300"/>
         </div>
       </div>
 		
@@ -209,6 +246,7 @@ if($is_admin){
     <script src="js/bootstrap-collapse.js"></script>
     <script src="js/bootstrap-carousel.js"></script>
     <script src="js/bootstrap-typeahead.js"></script>
+    <script src="js/club/home.js"></script>
 
   </body>
 </html>

@@ -5,7 +5,6 @@ include '/functions/sessions.php';
 include '/functions/secure.php';
 onlyadmins($is_admin);
 $is_admin = admin_check_force();
-$is_admin = admin_check_force();
 if($is_admin){
     $tit_get_admin_club = "SELECT * from admin WHERE studid=".$_SESSION['id'];
     $tit_admin_club = mysql_query($tit_get_admin_club);
@@ -22,6 +21,7 @@ if($is_admin){
         }
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,7 +56,6 @@ if($is_admin){
   </head>
 
   <body>
-
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -71,11 +70,22 @@ if($is_admin){
           <ul class="nav">
               <li><a href="home.php"><i class="icon-home"></i> Home</a></li>
               <li><a href="clubs.php"><i class="icon-th-large"></i> Clubs</a></li>
-              <?php if(isset($is_admin)){if($is_admin){?>
-              <li><a href="members.php"><span class="badge badge-inverse"><?php echo $tit_requests['COUNT(*)']; ?></span> Members</a></li>
-              <li><a href="organize.php"><i class="icon-calendar"></i> Organize</a></li>
-              <li><a href="attendance.php"><i class="icon-calendar"></i> Manage</a></li>
-              <?php }}?>
+              <?php 
+              if(isset($is_admin)){
+                  if($is_admin){?>
+              <li><a href="members.php"><span class="badge badge-inverse"><?php echo $tit_requests['COUNT(*)']?></span> Members</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="icon-calendar"></i> Events
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="organize.php">Organize</a></li>
+                  <li><a href="attendance.php">Manage</a></li>
+                </ul>
+              </li>
+              <?php }
+              }?>
           </ul>
           <ul class="nav nav-pills pull-right">
               <li class="dropdown">
@@ -96,76 +106,64 @@ if($is_admin){
     </div>
 
     <div class="container">
-
-      <!-- Main hero unit for a primary marketing message or call to action -->
-      <!--
-      <div class="hero-unit">
-              <h1>Welcome</h1>
-              <p>This is the official page for the heriot watt clubs.</p>
-              <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-            </div>-->
-      
-
       <!-- Row 1 -->
       <div class="row">
         <div class="span4">
-            <h1>Events</h1>
-            <div class="module">
-                <div class="module-cell">
+            <?php 
+                $get_all_events = "SELECT * FROM events WHERE clubid=".$tit_admin_club_id['clubid'];
+                $all_events = mysql_query($get_all_events);
+                if(!$all_events){?>
+                 <h1>You didnt orgranize any events.</h1>   
+                <?php }else{?>
+                 <h1>Events</h1> 
+            <div class="module">   
+            <?php while($events = mysql_fetch_assoc($all_events)){ ?>
+           
+                <div class="module-cell cursor" eventid="<?php echo $events['id']?>">
                     <img src="http://placehold.it/72x72" class="avatar"/>
-                    <h3>Event 1</h3>
+                    <div class="details">
+                        <h3><?php echo $events['name'];?> </h3>
+                        <h5><?php echo $events['whens']?></h5>
+                    </div>
                 </div>
-                <div class="module-cell">
-                    <img src="http://placehold.it/72x72" class="avatar"/>
-                    <h3>Meetup 1</h3>
-                </div>
-                <div class="module-cell">
-                    <img src="http://placehold.it/72x72" class="avatar"/>
-                    <h3>Training 1</h3>
-                </div>
+            <?php }} ?>
             </div>
         </div>
         <div class="span8">
+            <?php 
+            $typeahead_get_all_members = "SELECT * FROM membership WHERE clubid=".$tit_admin_club_id['clubid'];
+            $typeahead_all_members = mysql_query($typeahead_get_all_members);
+            while($typehead_members = mysql_fetch_assoc($typeahead_all_members)){
+                $typehead_members_id[] = $typehead_members; 
+            }
+            
+            foreach ($typehead_members_id as $typehead_members_ids) {
+                $typehead_get_member_details = "SELECT * FROM users WHERE id=".$typehead_members_ids['studid'];
+                $typehead_mem_details = mysql_fetch_assoc(mysql_query($typehead_get_member_details));
+                $typehead_members[] = $typehead_mem_details['name'];
+            }
+            $typehead_str = "";
+            for($i=0;$i<count($typehead_members);$i++){
+                if($i==0)
+                    $typehead_str=$typehead_str.'"'.$typehead_members[$i].'"';
+                else
+                    $typehead_str=$typehead_str.',"'.$typehead_members[$i].'"';
+            }
+           
+            
+            
+            //print_r($typehead_members);
+            ?>
+            <div id="return"></div>
             <div>
-                <h1>Attendees</h1>
-                <input type="button" class="btn btn-primary pull-right margtopmin45" value="Add Members" />
+                <h1 class="dis_title">Attendees</h1>
+                <div class="pull-right margtopmin15">
+                    <input type="text" class="margtop8" id="typehead_mem" data-provide="typeahead" data-items="4" data-source='[<?php echo $typehead_str;?>]'/>
+                    <input type="button" class="btn btn-primary" value="Add Members" id="add_member"/>
+                </div>
             </div>
             <div class="module clearfix">
-                <div class="module-cell minheight">
-                    <img src="http://placehold.it/72x72" class="avatar pull-left"/>
-                    <h3 class="pull-left">Member name</h3>
-                    <input type="button" class="btn btn-danger pull-right margtop15" value="Remove" />
-                </div>
-                <div class="module-cell minheight">
-                    <img src="http://placehold.it/72x72" class="avatar pull-left"/>
-                    <h3 class="pull-left">Member name</h3>
-                    <input type="button" class="btn btn-danger pull-right margtop15" value="Remove" />
-                </div>
-                <div class="module-cell minheight">
-                    <img src="http://placehold.it/72x72" class="avatar pull-left"/>
-                    <h3 class="pull-left">Member name</h3>
-                    <input type="button" class="btn btn-danger pull-right margtop15" value="Remove" />
-                </div>
-                <div class="module-cell minheight">
-                    <img src="http://placehold.it/72x72" class="avatar pull-left"/>
-                    <h3 class="pull-left">Member name</h3>
-                    <input type="button" class="btn btn-danger pull-right margtop15" value="Remove" />
-                </div>
-                <div class="module-cell minheight">
-                    <img src="http://placehold.it/72x72" class="avatar pull-left"/>
-                    <h3 class="pull-left">Member name</h3>
-                    <input type="button" class="btn btn-danger pull-right margtop15" value="Remove" />
-                </div>
-                <div class="module-cell minheight">
-                    <img src="http://placehold.it/72x72" class="avatar pull-left"/>
-                    <h3 class="pull-left">Member name</h3>
-                    <input type="button" class="btn btn-danger pull-right margtop15" value="Remove" />
-                </div>
-                <div class="module-cell minheight">
-                    <img src="http://placehold.it/72x72" class="avatar pull-left"/>
-                    <h3 class="pull-left">Member name</h3>
-                    <input type="button" class="btn btn-danger pull-right margtop15" value="Remove" />
-                </div>
+                <div class="dis_mem"></div>
             </div>
         </div>
       </div>
@@ -183,6 +181,7 @@ if($is_admin){
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/jquery.js"></script>
+    <script src="js/club/attendance.js"></script>
     <script src="js/bootstrap-transition.js"></script>
     <script src="js/bootstrap-alert.js"></script>
     <script src="js/bootstrap-modal.js"></script>

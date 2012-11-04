@@ -89,15 +89,19 @@ $all_clubs = mysql_query($get_all_clubs);
       </div>
       <div class="row">
         <div class="span4">
-          <img src="http://placehold.it/360x200" />
-          <h2><?php echo $club['name'];?></h2>
-          <p><?php echo $club['name'];?></p>
+          <div class="thumbnail">
+              <img src="http://placehold.it/360x270" />
+              <h2><?php echo $club['name'];?></h2>
+              <p><?php echo $club['name'];?></p>
+          </div>
         </div>
         <?php }else{ ?>
          <div class="span4">
-          <img src="http://placehold.it/360x200" />
-          <h2><?php echo $club['name'];?></h2>
-          <p><?php echo $club['name'];?></p>
+          <div class="thumbnail">
+              <img src="http://placehold.it/360x270" />
+              <h2><?php echo $club['name'];?></h2>
+              <p><?php echo $club['name'];?></p>
+          </div>
         </div>
         <?php } ?>
       

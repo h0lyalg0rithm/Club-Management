@@ -34,6 +34,7 @@ if($_GET['install']=='1'){
     /////////Add events
     $add_events_table = 'CREATE table events(
                                     id int auto_increment primary key,
+                                    clubid int,
                                     name text,
                                     type int,
                                     details text,
