@@ -7,11 +7,13 @@ $(document).ready(function(){
         var time = $('[name="time"]').val();
         var types = $('[name="types"]').val();
         $.post('ajax/organize.php',{types:types,name:name,details:details,wheres:wheres,whens:whens,time:time},function(data){
-            $('#return').html(data).fadeIn('3000');
-        });
+            $('.container').html(data).fadeIn('3000');
+        });       
     });
     $('.thumbnail').click(function(){
+        $('.thumbnail').removeClass("thumbselected");
         var $thumb = $(this);
         $('[name="types"]').val($thumb.attr('types'));
+        $thumb.toggleClass("thumbselected");
     });
 });

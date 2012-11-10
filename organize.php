@@ -120,19 +120,19 @@ if($is_admin){
       <div class="row">
     	<div class="span4">
     	    <div class="thumbnail cursor" types="1">
-        	    <img src="http://placehold.it/370x300"/>
+        	    <img src="img/meeting.jpg"/>
         	    <center><h2>Meetup</h2></center>
     	    </div>
     	</div>
     	<div class="span4">
             <div class="thumbnail cursor" types="2">
-                <img src="http://placehold.it/370x300"/>
+                <img src="img/event.jpg"/>
                 <center><h2>Event</h2></center>
             </div>
         </div>
         <div class="span4">
             <div class="thumbnail cursor" types="3">
-                <img src="http://placehold.it/370x300"/>
+                <img src="img/learning.jpg"/>
                 <center><h2>Training</h2></center>
             </div>
         </div>
@@ -142,6 +142,7 @@ if($is_admin){
 	  <div class="row">
 	      <div class="span8 offset2 margtop15">
 	          <div class="span5">
+	              <div id="return"></div>
     	          <form class="form-horizontal">
     	              <div class="control-group">
                           <label class="control-label" for="inputEmail">Name</label>
@@ -185,7 +186,6 @@ if($is_admin){
                         </div>
                       </div>
     	          </form>
-    	          <div id="return"></div>
     	      </div>
     	      <div class="span2">
                   <img src="http://placehold.it/180x180" class="img-polaroid"/>

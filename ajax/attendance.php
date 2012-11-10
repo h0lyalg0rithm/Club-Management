@@ -116,4 +116,91 @@ function delete_attendees($event_attendees,$stud_id){
     else 
         return 0;
 }
+//////////////////////////////////////////////////////////
+if(isset($_POST['edit_event_id'])){
+    $eventid = secure($_POST['edit_event_id']);
+    $get_event_valid = "SELECT * from events WHERE id=".$eventid.' AND clubid='.$admin_club['id'];
+    $event_valid = mysql_query($get_event_valid);
+    if($event_valid&&mysql_num_rows($event_valid)){
+        $event = mysql_fetch_assoc($event_valid);
+        $date_time = explode(" ", $event['whens']);
+        $time = explode(":", $date_time[1]);
+         ?><form class="form-horizontal margtop15">
+              <div class="control-group">
+                  <label class="control-label" for="event_name">Name</label>
+                    <div class="controls">
+                      <input type="text" placeholder="Name" name="event_name" value="<?php echo $event['name'];?>" id="event_name">
+                    </div>
+              </div>
+              <div class="control-group">
+                  <label class="control-label" for="event_details">Details</label>
+                    <div class="controls">
+                      <textarea rows="3" name="details" id="event_details"><?php echo $event['details'];?></textarea>
+                    </div>
+              </div>
+              <div class="control-group">
+                  <label class="control-label" for="event_wheres">Where</label>
+                    <div class="controls">
+                      <input type="text" id="event_wheres" placeholder="Location" name="wheres" value="<?php echo $event['wheres'];?>">
+                    </div>
+              </div>
+              <div class="control-group">
+                  <label class="control-label" for="event_whens">When</label>
+                    <div class="controls">
+                      <input type="date" id="event_whens" name="whens" value="<?php echo $date_time[0];?>">
+                    </div>
+              </div>
+              <div class="control-group">
+                  <label class="control-label" for="inputEmail">Time</label>
+                    <div class="controls">
+                      <select id="event_time">
+                          <?php for($i=1;$i<=23;$i++){?>
+                          <option value="<?php echo $i.':00';?>"<?php if($i==$time[0]){?>selected="selected"<?php }?>><?php echo $i.":00";?></option>
+                          <?php }?>
+                      </select>
+                    </div>
+              </div>
+              
+              <div class="control-group">
+                <div class="controls">
+                  <input type="hidden" name="types" value="1"/>
+                  <button type="button"  class="btn btn-primary" id="event_edit">Update</button>
+                  <button type="button" class="btn btn-danger" id="event_delete"><i class="icon-remove"></i> Delete</button>
+                </div>
+              </div>
+          </form><?php
+        
+        
+        
+    }
+}
+///////////////////////////////////////////////
+if(isset($_POST['event_name'])&&isset($_POST['event_details'])&&isset($_POST['event_wheres'])&&isset($_POST['event_whens'])&&isset($_POST['event_time'])&&isset($_POST['event_id'])){
+    $event_name = secure($_POST['event_name']);
+    $event_details = secure($_POST['event_details']);
+    $event_whens = secure($_POST['event_whens']);
+    $event_wheres = secure($_POST['event_wheres']);
+    $event_time = secure($_POST['event_time']);
+    $event_id = secure($_POST['event_id']);
+    $whens = $event_whens.' '.$event_time.':00';
+    $update_event = "UPDATE events SET name='".$event_name."' , details='".$event_details."' , whens='".$whens."' , wheres='".$event_wheres."' WHERE id=".$event_id." AND clubid=".$admin_club['id'];
+    $updated_event = mysql_query($update_event);
+    ?>
+    <div class="well margtop15">
+    <?php
+    if(!$updated_event)
+       echo "Not Done</div>";
+    else
+        echo "Done</div>";   
+}
+////////////////////
+if(isset($_POST['del_event'])&&isset($_POST['event_id'])){
+    $event_id = secure($_POST['event_id']);
+    $del_event = secure($_POST['del_event']);
+    print_r($_POST);
+    if($del_event){
+        $del_event = 'DELETE FROM events WHERE id='.$event_id.' AND clubid='.$admin_club['id'];
+    } 
+    mysql_query($del_event);
+}
 ?>

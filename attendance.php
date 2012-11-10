@@ -115,7 +115,7 @@ if($is_admin){
                 if(!$all_events){?>
                  <h1>You didnt orgranize any events.</h1>   
                 <?php }else{?>
-                 <h1>Events</h1> 
+                 <h1>Events</h1><button type="button" class="btn pull-right margtopmin45 " id="edit"><i class="icon-wrench"></i>  Edit </button>
             <div class="module">   
             <?php while($events = mysql_fetch_assoc($all_events)){ ?>
            
@@ -157,7 +157,7 @@ if($is_admin){
             <div id="return"></div>
             <div>
                 <h1 class="dis_title">Attendees</h1>
-                <div class="pull-right margtopmin15">
+                <div class="pull-right margtopmin50" id="add_mem_dis">
                     <input type="text" class="margtop8" id="typehead_mem" data-provide="typeahead" data-items="4" data-source='[<?php echo $typehead_str;?>]'/>
                     <input type="button" class="btn btn-primary" value="Add Members" id="add_member"/>
                 </div>

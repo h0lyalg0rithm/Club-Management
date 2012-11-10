@@ -41,8 +41,14 @@
 .margtopmin45{
     margin-top:-45px;
 }
-.margtopmin15{
+.margtopmin50{
     margin-top:-50px;
+}
+.margtopmin15{
+    margin-top:-15px;
+}
+.margleft50{
+    margin-left:50px;
 }
 .cursor{
     cursor:pointer;
@@ -52,4 +58,10 @@
 } 
 .hovercolor:hover{
     background-color: whiteSmoke;
+}
+.thumbselected{
+    background-color:WhiteSmoke;
+}
+.z10{
+    z-index:10;
 }
