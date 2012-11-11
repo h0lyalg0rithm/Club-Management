@@ -152,7 +152,7 @@ if($is_admin){
           <img src="http://placehold.it/360x200" />
           <h2><?php echo $club['name'];?></h2>
           <p><?php echo $club['description'];?></p>
-          <p><a class="btn" club="<?php echo $club['id'];?>" id="joined">Join Club &raquo;</a></p>
+          <p><a class="btn" club="<?php echo $club['id'];?>" id="joined">Joined Club &raquo;</a></p>
         </div>
         <?php } ?>
         </div>    

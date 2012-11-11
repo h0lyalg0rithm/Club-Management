@@ -194,7 +194,7 @@ if($is_admin){
               <div class="tab-content">
                 <div id="pane1" class="tab-pane active">
                   <?php 
-                  $get_recent_events = 'SELECT * from events WHERE attendees LIKE "%,'.$creds['id'].',%" OR attendees LIKE "'.$creds['id'].',%"';
+                  $get_recent_events = 'SELECT * from events WHERE attendees LIKE "%,'.$creds['id'].',%" OR attendees LIKE "'.$creds['id'].',%" ORDER BY whens DESC';
                   $recent_events = mysql_query($get_recent_events);
                   if($recent_events){
                       if(mysql_num_rows($recent_events)){
