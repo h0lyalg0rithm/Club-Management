@@ -24,6 +24,7 @@ $time = $time_end - $time_start;
 
 echo "Did nothing in $time seconds\n";
  */
+/*
  $time_start = microtime(true);
  $hostname = 'localhost';
 $username = 'root';
@@ -46,6 +47,24 @@ mysql_query($query);
 $time_end = microtime(true);
 $time = $time_end - $time_start;
 
-echo "Did nothing in $time seconds\n";
+echo "Did nothing in $time seconds\n";*/
+
+$hostname = 'localhost';
+$username = 'root';
+$password = '';
+$database = 'clubs';
+$connection = mysql_connect($hostname,$username,$password);
+if(!$connection){
+    die('Cant connect to DB');
+}
+mysql_select_db($database);
+$query = 'INSERT INTO test(name, studid, email) VALUES ("test",12233,"email@email.com")';
+$done = mysql_query($query);
+$id = mysql_insert_id($connection);
+echo $id;
+
+
+
+
  
 ?>
