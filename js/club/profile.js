@@ -5,7 +5,7 @@ $(document).ready(function(){
         var studid = $('#studid').val();
         var oldpassword = $('#oldpassword').val();
         var newpassword = $('#newpassword').val(); 
-        var imgsrc = $('#imgsrc').attr('src');
+        var imgsrc = $('#imgsrc').attr('orgsrc');
         $.post('ajax/profile.php',{imgsrc:imgsrc,name:name,email:email,studid:studid,oldpassword:oldpassword,newpassword:newpassword},function(data){
             $('#status').html(data);
         });
@@ -17,6 +17,7 @@ $(document).ready(function(){
         },
         done: function (e, data) {
             $('#imgsrc').attr('src',data.result[0].thumbnail_url);
+            $('#imgsrc').attr('orgsrc',data.result[0].name);
             $(this).hide();
         }
     });

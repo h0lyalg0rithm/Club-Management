@@ -191,7 +191,7 @@ if(isset($_POST['event_name'])&&isset($_POST['event_details'])&&isset($_POST['ev
     $whens = $event_whens.' '.$event_time.':00';
     $img = $_POST['imgsrc'];
     $update_event = "UPDATE events SET photo='".$img."', name='".$event_name."' , details='".$event_details."' , whens='".$whens."' , wheres='".$event_wheres."' WHERE id=".$event_id." AND clubid=".$admin_club['id'];
-    echo $update_event;
+    //echo $update_event;
     $updated_event = mysql_query($update_event);
     ?>
     <div class="well margtop15">

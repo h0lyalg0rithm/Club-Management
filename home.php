@@ -168,7 +168,7 @@ if($is_admin){
         	<div class="module">
         		<div class="module-cell minheight">
         			<img src="<?php if($creds['photo']&&$creds['photo']!=""){
-        			    echo $creds['photo'];
+        			    echo 'uploadman/files/thumbnail/'.$creds['photo'];
         			}else{
         			echo 'http://placehold.it/72x72';}
         			?>" class="avatar"/>
@@ -183,7 +183,7 @@ if($is_admin){
 				?>
         		<div class="module-cell minheight">
                     <img src="<?php if($club['photo']!=""&&$club['photo']){
-                        echo $club['photo'];}else{ echo 'http://placehold.it/72x72';}?>" class="avatar"/>
+                        echo 'uploadman/files/thumbnail/'.$club['photo'];}else{ echo 'http://placehold.it/72x72';}?>" class="avatar"/>
                     <h3><?php echo $club['name']; ?></h3>
                 </div>
                 <?php }}else{ ?>
@@ -211,7 +211,7 @@ if($is_admin){
                                   default:break;
                               }
                               ?>
-                              <div class="modal-header hovercolor"><img src="<?php if($events['photo']!=""){echo $events['photo'];}else{echo 'http://placehold.it/72x72';}?>"/> You attended the <?php echo $event_type; ?> : <span class="text-info"><?php echo $events['name'];?></span><br /></div>
+                              <div class="modal-header hovercolor"><img src="<?php if($events['photo']!=""){echo 'uploadman/files/thumbnail/'.$events['photo'];}else{echo 'http://placehold.it/72x72';}?>"/> You attended the <?php echo $event_type; ?> : <span class="text-info"><?php echo $events['name'];?></span><br /></div>
                               <?php
                           }
                       }

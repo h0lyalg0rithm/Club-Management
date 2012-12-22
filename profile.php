@@ -112,7 +112,7 @@ if($is_admin){
         <div class="span2 offset2">
             <img src="<?php 
             if($creds['photo']&&$creds['photo']!=""){
-                echo $creds['photo'];
+                echo 'uploadman/files/thumbnail/'.$creds['photo'];
             }else{
                 echo 'http://placehold.it/72x72';
             }?>" id="imgsrc" class="avatar"/>

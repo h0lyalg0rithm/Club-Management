@@ -6,7 +6,7 @@ $(document).ready(function(){
         var whens = $('[name="whens"]').val();
         var time = $('[name="time"]').val();
         var types = $('[name="types"]').val();
-        var img = $('#imgsrc').attr('src');
+        var img = $('#imgsrc').attr('orgsrc');
         if(img!=""){
             $.post('ajax/organize.php',{types:types,name:name,details:details,wheres:wheres,whens:whens,time:time,srcimg:img},function(data){
                $('.container.body').html(data).fadeIn('3000');
@@ -29,6 +29,7 @@ $(document).ready(function(){
             data.context.text('Upload finished.');
             //$('#srcimg').attr('')
             $('#imgsrc').attr('src',data.result[0].thumbnail_url);
+            $('#imgsrc').attr('orgsrc',data.result[0].name);
             $(this).hide();
         }
     });

@@ -64,7 +64,7 @@ $(document).ready(function(){
         var event_whens = $('#event_whens').val();
         var event_wheres = $('#event_wheres').val();
         var event_time = $('#event_time').val();
-        var img = $('#imgsrc').attr('src');
+        var img = $('#imgsrc').attr('orgsrc');
         $.post('ajax/attendance.php',{imgsrc:img,event_id:eventid,event_name:event_name,event_details:event_details,
               event_whens:event_whens,event_wheres:event_wheres,event_time:event_time},function(data){
                     $('.dis_mem').html(data);
@@ -93,6 +93,7 @@ $(document).ready(function(){
                 done: function (e, data) {
                     //$('#srcimg').attr('')
                     $('#imgsrc').attr('src',data.result[0].thumbnail_url);
+                    $('#imgsrc').attr('orgsrc',data.result[0].name);
                     $(this).hide();
                 }
         });
