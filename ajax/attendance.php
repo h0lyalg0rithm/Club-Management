@@ -127,6 +127,12 @@ if(isset($_POST['edit_event_id'])){
         $time = explode(":", $date_time[1]);
          ?><form class="form-horizontal margtop15">
               <div class="control-group">
+                    <div class="controls">
+                      <img src="<?php if($event['photo']!=''){echo $event['photo'];}else{ echo 'http://placehold.it/72x72';} ?>" id="imgsrc"/><br>
+                      <input id="fileupload" type="file" name="files[]" data-url="uploadman/" />
+                    </div>
+              </div>
+              <div class="control-group">
                   <label class="control-label" for="event_name">Name</label>
                     <div class="controls">
                       <input type="text" placeholder="Name" name="event_name" value="<?php echo $event['name'];?>" id="event_name">
@@ -183,7 +189,9 @@ if(isset($_POST['event_name'])&&isset($_POST['event_details'])&&isset($_POST['ev
     $event_time = secure($_POST['event_time']);
     $event_id = secure($_POST['event_id']);
     $whens = $event_whens.' '.$event_time.':00';
-    $update_event = "UPDATE events SET name='".$event_name."' , details='".$event_details."' , whens='".$whens."' , wheres='".$event_wheres."' WHERE id=".$event_id." AND clubid=".$admin_club['id'];
+    $img = $_POST['imgsrc'];
+    $update_event = "UPDATE events SET photo='".$img."', name='".$event_name."' , details='".$event_details."' , whens='".$whens."' , wheres='".$event_wheres."' WHERE id=".$event_id." AND clubid=".$admin_club['id'];
+    echo $update_event;
     $updated_event = mysql_query($update_event);
     ?>
     <div class="well margtop15">

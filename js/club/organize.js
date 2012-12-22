@@ -9,7 +9,7 @@ $(document).ready(function(){
         var img = $('#imgsrc').attr('src');
         if(img!=""){
             $.post('ajax/organize.php',{types:types,name:name,details:details,wheres:wheres,whens:whens,time:time,srcimg:img},function(data){
-               $('.container').html(data).fadeIn('3000');
+               $('.container.body').html(data).fadeIn('3000');
             });     
         }  
     });

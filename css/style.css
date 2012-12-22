@@ -65,3 +65,7 @@
 .z10{
     z-index:10;
 }
+.thumbnail > img{
+    height:250px;
+    width:100%;
+}

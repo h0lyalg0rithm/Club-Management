@@ -182,7 +182,8 @@ if($is_admin){
         		      foreach ($clubs as $club) {
 				?>
         		<div class="module-cell minheight">
-                    <img src="http://placehold.it/72x72" class="avatar"/>
+                    <img src="<?php if($club['photo']!=""&&$club['photo']){
+                        echo $club['photo'];}else{ echo 'http://placehold.it/72x72';}?>" class="avatar"/>
                     <h3><?php echo $club['name']; ?></h3>
                 </div>
                 <?php }}else{ ?>
@@ -210,7 +211,7 @@ if($is_admin){
                                   default:break;
                               }
                               ?>
-                              <div class="modal-header hovercolor"><img src="http://placehold.it/72x72"/> You attended the <?php echo $event_type; ?> : <span class="text-info"><?php echo $events['name'];?></span><br /></div>
+                              <div class="modal-header hovercolor"><img src="<?php if($events['photo']!=""){echo $events['photo'];}else{echo 'http://placehold.it/72x72';}?>"/> You attended the <?php echo $event_type; ?> : <span class="text-info"><?php echo $events['name'];?></span><br /></div>
                               <?php
                           }
                       }

@@ -120,7 +120,7 @@ if($is_admin){
             <?php while($events = mysql_fetch_assoc($all_events)){ ?>
            
                 <div class="module-cell cursor" eventid="<?php echo $events['id']?>">
-                    <img src="http://placehold.it/72x72" class="avatar"/>
+                    <img src="<?php if($events['photo']!=""){echo $events['photo'];}else{echo 'http://placehold.it/72x72';}?>" class="avatar"/>
                     <div class="details">
                         <h3><?php echo $events['name'];?> </h3>
                         <h5><?php echo $events['whens']?></h5>
@@ -181,6 +181,9 @@ if($is_admin){
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/jquery.js"></script>
+    <script src="js/fileupload/jquery.ui.widget.js"></script>
+    <script src="js/fileupload/jquery.fileupload.js"></script>
+    <script src="js/fileupload/jquery.iframe-transport.js"></script>
     <script src="js/club/attendance.js"></script>
     <script src="js/bootstrap-transition.js"></script>
     <script src="js/bootstrap-alert.js"></script>
@@ -194,6 +197,6 @@ if($is_admin){
     <script src="js/bootstrap-collapse.js"></script>
     <script src="js/bootstrap-carousel.js"></script>
     <script src="js/bootstrap-typeahead.js"></script>
-
+    
   </body>
 </html>

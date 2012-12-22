@@ -38,7 +38,7 @@ $(document).ready(function(){
             }
         });
     });
-    $('#edit').click(function(){
+    $('#edit').live('click',function(){
         $(this).toggleClass('btn-success');
         if(!editing){
             editing = 1;
@@ -47,14 +47,16 @@ $(document).ready(function(){
             $('#add_mem_dis').hide();
             if(eventid)
                 edit_event(eventid); 
+            
         }
         else{
             editing = 0;
             $('#add_mem_dis').show();
             $(this).html('<i class="icon-wrench"></i> Edit ');
-            $('.dis_title').html("Manage Attendees");  
+            $('.dis_title').html("Manage Attendees");
+            reload_dis(eventid);
         }
-        console.log(editing);
+        
     });
     $('#event_edit').live("click",function(){
         var event_name = $('#event_name').val();
@@ -62,13 +64,14 @@ $(document).ready(function(){
         var event_whens = $('#event_whens').val();
         var event_wheres = $('#event_wheres').val();
         var event_time = $('#event_time').val();
-        $.post('ajax/attendance.php',{event_id:eventid,event_name:event_name,event_details:event_details,
+        var img = $('#imgsrc').attr('src');
+        $.post('ajax/attendance.php',{imgsrc:img,event_id:eventid,event_name:event_name,event_details:event_details,
               event_whens:event_whens,event_wheres:event_wheres,event_time:event_time},function(data){
                     $('.dis_mem').html(data);
        });
-       setInterval(function(){
-       location.reload();
-       },600);
+       //setInterval(function(){
+       //location.reload();
+       //},600);
     });
     $('#event_delete').live("click",function(){
         var pro = confirm("Are you sure you want to delete?");
@@ -77,6 +80,22 @@ $(document).ready(function(){
                 $('.dis_mem').empty();
             });
         }
+    });
+    var file_upload = function fileupload(){
+            
+    }
+    $('body').ajaxSuccess(function(){
+       $('#fileupload').fileupload({
+                dataType: 'json',
+                add: function (e, data) {
+                    data.submit();
+                },
+                done: function (e, data) {
+                    //$('#srcimg').attr('')
+                    $('#imgsrc').attr('src',data.result[0].thumbnail_url);
+                    $(this).hide();
+                }
+        });
     });
 });
 function reload_dis(eventid){
