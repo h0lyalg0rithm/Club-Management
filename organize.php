@@ -188,9 +188,8 @@ if($is_admin){
     	          </form>
     	      </div>
     	      <div class="span2">
-                  <img src="http://placehold.it/180x180" class="img-polaroid"/>
-                  <input type="file" />
-                  <input type="submit" class="btn" />
+                  <img src="http://placehold.it/180x180" class="img-polaroid" id="imgsrc"/>
+                  <input id="fileupload" type="file" name="files[]" data-url="uploadman/" />
               </div>
 	      </div>
 	  </div>
@@ -220,6 +219,8 @@ if($is_admin){
     <script src="js/bootstrap-collapse.js"></script>
     <script src="js/bootstrap-carousel.js"></script>
     <script src="js/bootstrap-typeahead.js"></script>
-
+    <script src="js/fileupload/jquery.ui.widget.js"></script>
+    <script src="js/fileupload/jquery.fileupload.js"></script>
+    <script src="js/fileupload/jquery.iframe-transport.js"></script>
   </body>
 </html>

@@ -17,17 +17,28 @@ if(isset($_SESSION['id'])){
     }
     if(isset($_POST['studid'])&&$_POST['studid']!=""){
         if($c) $update = $update.",";
-        $update = $update." studdent_id ='".secure($_POST['name'])."'";
+        $update = $update." student_id ='".secure($_POST['studid'])."'";
         $c = 1;
     }
     if(isset($_POST['oldpassword'])&&$_POST['oldpassword']!=""){
-        if($c) $update = $update.",";
-        $update = $update." oldpassword ='".hash('SHA256',secure($_POST['oldpassword']))."'";
-        $c = 1;
+        $get_old_password = 'SELECT * FROM users WHERE id='.$_SESSION['id'];
+        $old_password = mysql_query($get_old_password);
+        if((mysql_num_rows($old_password)&&$old_password)){
+            $old_password = mysql_fetch_assoc($old_password);
+            if($old_password['password']==hash('SHA256',secure($_POST['oldpassword']))){
+                if(isset($_POST['newpassword'])&&$_POST['newpassword']!=""){
+                    if($c) $update = $update.",";
+                    $update = $update." password ='".hash('SHA256',secure($_POST['newpassword']))."'";
+                    $c = 1;
+                }
+            }
+        }
     }
-    if(isset($_POST['newpassword'])&&$_POST['newpassword']!=""){
+    
+    if(isset($_POST['imgsrc'])){
+        $img = $_POST['imgsrc'];
         if($c) $update = $update.",";
-        $update = $update." newpassword ='".hash('SHA256',secure($_POST['newpassword']))."'";
+        $update = $update." photo ='".$img."'";
         $c = 1;
     }
     
@@ -41,7 +52,7 @@ if(isset($_SESSION['id'])){
               <button type="button" class="close" data-dismiss="alert">×</button>
               <strong>Your settings were saved</strong>
            </div> 
-        <?php }else{echo $update;?>
+        <?php }else{?>
            <div class="alert">
               <button type="button" class="close" data-dismiss="alert">×</button>
               <strong>Warning!</strong> Best check yo self, you're not looking too good.

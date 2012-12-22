@@ -167,7 +167,11 @@ if($is_admin){
         	<h1>Your Profile</h1>
         	<div class="module">
         		<div class="module-cell minheight">
-        			<img src="http://placehold.it/72x72" class="avatar"/>
+        			<img src="<?php if($creds['photo']&&$creds['photo']!=""){
+        			    echo $creds['photo'];
+        			}else{
+        			echo 'http://placehold.it/72x72';}
+        			?>" class="avatar"/>
         			<h3><?php echo $creds['name']; ?></h3>
     			</div>
         	</div>

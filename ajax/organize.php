@@ -14,11 +14,12 @@ if(isset($_POST['types'])&&isset($_POST['name'])&&isset($_POST['details'])&&isse
     $wheres = secure($_POST['wheres']);
     $whens = secure($_POST['whens']);
     $time = secure($_POST['time']);
+    $img = $_POST['srcimg'];
     $check_if_event = 'SELECT * from events WHERE clubid='.$admins_clubs['clubid'].' AND name="'.$name.'" AND details="'.$details.'"';
     $if_event = mysql_query($check_if_event);
     if($if_event){
         if(!mysql_num_rows($if_event)){
-            $create_event = "INSERT INTO events(clubid,name,type,details,wheres,whens) VALUES (".$admins_clubs['clubid'].",'".$name."',".$types.",'".$details."','".$wheres."','".$whens." ".$time.":00');";
+            $create_event = "INSERT INTO events(photo,clubid,name,type,details,wheres,whens) VALUES ('".$img."',".$admins_clubs['clubid'].",'".$name."',".$types.",'".$details."','".$wheres."','".$whens." ".$time.":00')";
             //echo $create_event;
             $created_event = mysql_query($create_event);
             if($created_event){?>

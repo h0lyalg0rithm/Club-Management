@@ -5,8 +5,19 @@ $(document).ready(function(){
         var studid = $('#studid').val();
         var oldpassword = $('#oldpassword').val();
         var newpassword = $('#newpassword').val(); 
-        $.post('ajax/profile.php',{name:name,email:email,studid:studid,oldpassword:oldpassword,newpassword:newpassword},function(data){
-            $('#status').html(data).hide(3000);
+        var imgsrc = $('#imgsrc').attr('src');
+        $.post('ajax/profile.php',{imgsrc:imgsrc,name:name,email:email,studid:studid,oldpassword:oldpassword,newpassword:newpassword},function(data){
+            $('#status').html(data);
         });
+    });
+    $('#fileupload').fileupload({
+        dataType: 'json',
+        add: function (e, data) {
+            data.submit();
+        },
+        done: function (e, data) {
+            $('#imgsrc').attr('src',data.result[0].thumbnail_url);
+            $(this).hide();
+        }
     });
 });

@@ -110,9 +110,13 @@ if($is_admin){
       <!-- Row 1 -->
       <div class="row">
         <div class="span2 offset2">
-            <img src="http://placehold.it/140x140"/>
-            <input type="file" />
-            <input type="submit" class="btn" />
+            <img src="<?php 
+            if($creds['photo']&&$creds['photo']!=""){
+                echo $creds['photo'];
+            }else{
+                echo 'http://placehold.it/72x72';
+            }?>" id="imgsrc" class="avatar"/>
+            <input type="file" id="fileupload" name="files[]" data-url="uploadman/">
         </div>
         <div class="span8">
             <form class="form-horizontal">
@@ -129,7 +133,7 @@ if($is_admin){
                     </div>
               </div>
               <div class="control-group">
-                  <label class="control-label" for="studid">Students ID</label>
+                  <label class="control-label" for="studid">Student ID</label>
                     <div class="controls">
                       <input type="text" id="studid" placeholder="Heriot Watt ID">
                     </div>
@@ -182,6 +186,8 @@ if($is_admin){
     <script src="js/bootstrap-collapse.js"></script>
     <script src="js/bootstrap-carousel.js"></script>
     <script src="js/bootstrap-typeahead.js"></script>
-
+    <script src="js/fileupload/jquery.ui.widget.js"></script>
+    <script src="js/fileupload/jquery.fileupload.js"></script>
+    <script src="js/fileupload/jquery.iframe-transport.js"></script>
   </body>
 </html>
